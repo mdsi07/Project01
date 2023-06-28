@@ -37,11 +37,30 @@
 
 // TASK 05 Deliverables
 
-var li = document.getElementsByTagName('li');
-
+//var li = document.getElementsByTagName('li');
 
 //For background Color
-for(var i =0; i< li.length; i++)
+/*for(var i =0; i< li.length; i++)
 {
     li[i].style.backgroundColor = '#f4f4f4';
+} */
+
+
+// TASK 06 Deliverables
+
+//using QuerySelector()
+// var secondItem = document.querySelector('.list-group-item:nth-child(2)');
+// secondItem.style.backgroundColor = 'green';
+
+// var thirdItem = document.querySelector('.list-group-item:nth-child(3)');
+// thirdItem.style.color = 'white';
+
+//using QuerySelectorAll()
+var secondItem = document.querySelectorAll('li');
+secondItem[1].style.color = 'green';
+
+var odd = document.querySelectorAll('li:nth-child(odd)');
+for(var i = 0; i < odd.length; i++)
+{
+    odd[i].style.backgroundColor = 'green';
 }
