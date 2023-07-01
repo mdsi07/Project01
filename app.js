@@ -69,68 +69,146 @@
 
 //TASK 07 Deliverables
 
-var itemList = document.querySelector('#items');
+// var itemList = document.querySelector('#items');
 
-// (01) parentElement
-itemList.parentElement.style.backgroundColor = '#f1fff1';
+// // (01) parentElement
+// itemList.parentElement.style.backgroundColor = '#f1fff1';
 
-// (02) lastElementChild
-itemList.lastElementChild.textContent = 'List Element 4';
+// // (02) lastElementChild
+// itemList.lastElementChild.textContent = 'List Element 4';
 
-// (03) lastChild
-console.log(itemList.lastChild);
-itemList.lastChild.textContent = 'End of the List Elements';
+// // (03) lastChild
+// console.log(itemList.lastChild);
+// itemList.lastChild.textContent = 'End of the List Elements';
 
-// (04) createChild  <--
-console.log(itemList.child);
+// // (04) createChild  <--
+// console.log(itemList.child);
 
-// (05) firstElementChild
-itemList.firstElementChild.textContent = 'List Element 1';
+// // (05) firstElementChild
+// itemList.firstElementChild.textContent = 'List Element 1';
 
-// (06) firstChild
-console.log(itemList.firstChild);
-itemList.firstChild.textContent = 'Belew are the List Elements';
+// // (06) firstChild
+// console.log(itemList.firstChild);
+// itemList.firstChild.textContent = 'Belew are the List Elements';
 
-// (07) nextSibling <--
-console.log(itemList.nextSibling);
+// // (07) nextSibling <--
+// console.log(itemList.nextSibling);
 
-// (08) nextelementsibling <--
-console.log(itemList.nextElementSibling);
+// // (08) nextelementsibling <--
+// console.log(itemList.nextElementSibling);
 
-// (09) previousSibling <--
-console.log(itemList.previousSibling);
+// // (09) previousSibling <--
+// console.log(itemList.previousSibling);
 
-// (10) previousElementSibling
-console.log(itemList.previousElementSibling);
-itemList.previousElementSibling.textContent = 'List Elements';
+// // (10) previousElementSibling
+// console.log(itemList.previousElementSibling);
+// itemList.previousElementSibling.textContent = 'List Elements';
 
-// (11) createElement
+// // (11) createElement
 
-// create a div
-var  newDiv = document.createElement('div');
+// // create a div
+// var  newDiv = document.createElement('div');
 
-// add a class
-newDiv.className = 'newDivClassName';
+// // add a class
+// newDiv.className = 'newDivClassName';
 
-// add a id
-newDiv.id = 'newDivId';
+// // add a id
+// newDiv.id = 'newDivId';
 
-// (12) add attribute
-newDiv.setAttribute('title', 'newDivTitle');
+// // (12) add attribute
+// newDiv.setAttribute('title', 'newDivTitle');
 
-// (13) create text node
-var newDivText = document.createTextNode('Welcome to');
+// // (13) create text node
+// var newDivText = document.createTextNode('Welcome to');
 
-// (14) appendChild
-newDiv.appendChild(newDivText);
+// // (14) appendChild
+// newDiv.appendChild(newDivText);
 
-// Now, Implement the Deleverables to the DOM
-var container = document.querySelector('header .container');
-var h1 = document.querySelector('header h1');
+// // Now, Implement the Deleverables to the DOM
+// var container = document.querySelector('header .container');
+// var h1 = document.querySelector('header h1');
 
-container.insertBefore(newDiv, h1);
+// container.insertBefore(newDiv, h1);
 
 
-// I'm implement some changes for Page looking good
-itemList.children[1].textContent = 'List Element 2';
-itemList.children[2].textContent = 'List Element 3';
+// // I'm implement some changes for Page looking good
+// itemList.children[1].textContent = 'List Element 2';
+// itemList.children[2].textContent = 'List Element 3';
+
+
+
+// TASK 08 Deliverables
+
+var form = document.getElementById('addForm');
+var itemList = document.getElementById('items');
+var filter = document.getElementById('filter');
+
+// Form submit event
+form.addEventListener('submit', addItem);
+// Delete event
+itemList.addEventListener('click', removeItem);
+// Filter event
+filter.addEventListener('keyup', filterItems);
+
+// Add item
+function addItem(e){
+  e.preventDefault();
+
+  // Get input value
+  var newItem = document.getElementById('item').value;
+
+  // Create new li element
+  var li = document.createElement('li');
+  // Add class
+  li.className = 'list-group-item';
+  // Add text node with input value
+  li.appendChild(document.createTextNode(newItem));
+
+  // Create del button element
+  var deleteBtn = document.createElement('button');
+
+  // Add classes to del button
+  deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+
+  // Append text node
+  deleteBtn.appendChild(document.createTextNode('X'));
+
+  // Append button to li
+  li.appendChild(deleteBtn);
+
+  // Append li to list
+  itemList.appendChild(li);
+
+  // Create edit button element
+  var editButton = document.createElement('button');
+  editButton.className = "btn btn-primary btn-sm float-right edit";
+  editButton.innerHTML = "Edit";
+  li.appendChild(editButton);
+}
+
+// Remove item
+function removeItem(e){
+  if(e.target.classList.contains('delete')){
+    if(confirm('Are You Sure?')){
+      var li = e.target.parentElement;
+      itemList.removeChild(li);
+    }
+  }
+}
+
+// Filter Items
+function filterItems(e){
+  // convert text to lowercase
+  var text = e.target.value.toLowerCase();
+  // Get lis
+  var items = itemList.getElementsByTagName('li');
+  // Convert to an array
+  Array.from(items).forEach(function(item){
+    var itemName = item.firstChild.textContent;
+    if(itemName.toLowerCase().indexOf(text) != -1){
+      item.style.display = 'block';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
